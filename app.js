@@ -15,6 +15,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 /**
+  * Código responsável pelas rotas que vamos utilizar para desenvolver os 03 CRUDs da aplicação. Ou seja,
+  * desenvolver as rotas para que a gente consiga fazer a criação de uma requisição, listagem, modificar e deletar.
+*/
+
+FuncionarioRouter = require('./routes/funcionario');
+app.use('/funcionario', FuncionarioRouter);
+
+/**
   * Código responsável por inicializar o servidor na porta indicada acima,
   * pelas variável 'port', no caso, na porta 3001.
 */
