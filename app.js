@@ -2,8 +2,11 @@
  * Importação do Framework express, um framework web para NodeJS responsável por encapsular as requisições e respostas HTTP.
  * Para inicializar o express, vamos usar a constante app, assim podemos iniciar os middlewares que serão utilizados no projeto.
 */
+require('dotenv').config()
+
 const express = require('express');
 const app = express();
+
 
 /**
   * Códigos responsáveis por rodar os middlewares da aplicação. Os middlewares são funções responsáveis por processarem
@@ -13,6 +16,7 @@ const app = express();
  
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(require('./helpers/mongo'));
 
 /**
   * Código responsável pelas rotas que vamos utilizar para desenvolver os 03 CRUDs da aplicação. Ou seja,
@@ -20,7 +24,10 @@ app.use(express.urlencoded({ extended: false }));
 */
 
 FuncionarioRouter = require('./routes/funcionario');
+ClienteRouter = require('./routes/cliente');
+
 app.use('/funcionario', FuncionarioRouter);
+app.use('/cliente', ClienteRouter);
 
 /**
   * Código responsável por inicializar o servidor na porta indicada acima,
@@ -30,5 +37,3 @@ app.use('/funcionario', FuncionarioRouter);
 app.listen(3001, () => {
   console.log('Aplicação rodando ...');
 });
-
-
