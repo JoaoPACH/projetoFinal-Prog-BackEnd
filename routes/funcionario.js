@@ -7,74 +7,79 @@ const express = require('express');
 const router = express.Router();
 
 const FuncionarioModel = require('../model/Funcionario');
+const Auth = require("../helpers/Auth");
+const { isValidObjectId } = require("mongoose");
 
 /**
  * Código responsável por listar todos os elementos da lista.
  */
 
-router.get('/', (req, res) => {
-  let lista = FuncionarioModel.list();
-  if(req.query.nome){
-    lista = FuncionarioModel.listByName(req.query.nome);
-  } else if(req.query.email){
-    lista = FuncionarioModel.listByEmail(req.query.email)
-  }
+router.get('/', Auth.validaAcesso, async (req, res) => {
+  const {
+    pagina,
+    limite
+  } = req.query;
+  const data = await FuncionarioModel.list({ pagina, limite });
+  res.send(data);
+});
+
+router.get('/:id', Auth.validaAcesso, async (req, res) => {
+  const {
+    id
+  } = req.params;
   
-  res.json({
-    count: lista.length,
-    lista: lista
-  });
-});
-
-router.get('/:id', (req, res) => {
-  let obj = FuncionarioModel.getElementById(req.params.id);
-  if(obj){
-    res.json({ obj: obj })
+  if(!isValidObjectId(id)){
+    res.status(400).json({ mensagem: "O ID informado não é válido." })
   } else {
-    res.status(404).json({ mensagem: "O ID informado não é válido." })
+    const data = await FuncionarioModel.findById(id);
+    res.send(data);
   }
 });
 
-router.post('/', (req, res) => {
-  let {
+router.post('/', Auth.validaAcesso, async (req, res) => {
+  const {
     nome,
-    email,
+    salario,
     senha
   } = req.body;
-  if(nome && email && senha){
-    let obj = FuncionarioModel.save(nome, email, senha);
+
+  if(nome && salario && senha){
+    let obj = FuncionarioModel.save(nome, salario, senha);
     res.json({ obj: obj })
   } else {
     res.status(400).json({ mensagem: "Falha ao inserir o novo colaborador." })
   }
 });
 
-router.put('/:id', (req, res) => {
-  let {
-    nome,
-    email,
-    senha
-  } = req.body;
-  let id = req.params.id;
-  if(nome && email && senha){
-    let obj = FuncionarioModel.update(id, nome, email, senha)
-    if(obj){
-      res.json({ obj: obj })
-    } else{
-      res.status(400).json({ mensagem: "O ID informado não foi encontrado." })
-    }
-  } else {
-    res.status(400).json({ mensagem: "Falha ao alterar o colaborador." })
+router.put('/:id', Auth.validaAcesso, async (req, res) => {
+  const {
+    id
+  } = req.params;
+  
+  if(!isValidObjectId(id)){
+    res.status(400).json({ mensagem: "O ID informado não foi encontrado." });
+  } else{
+    const funcionario = await FuncionarioModel.update(id, req.body);
+    res.json({
+      mensagem: "Funcionario editado com sucesso.",
+      funcionario
+    });
   }
-
 });
 
-router.delete('/:id', (req, res) => {
-  let id = req.params.id;
-  if (FuncionarioModel.delete(id)){
-    res.json({ "mensagem": "Colaborador excluido com sucesso" });
-  } else{
+router.delete('/:id', Auth.validaAcesso, async (req, res) => {
+  const {
+    id
+  } = req.params;
+
+  if(!isValidObjectId(id)){
     res.status(400).json({ mensagem: "Falha ao excluir o colaborador." });
+  } else{
+    const funcionario = await FuncionarioModel.delete(id);
+    res.json({
+      mensagem: "Colaborador excluido com sucesso.",
+      funcionario
+    });
   }
 });
 

@@ -25,9 +25,11 @@ app.use(require('./helpers/mongo'));
 
 FuncionarioRouter = require('./routes/funcionario');
 ClienteRouter = require('./routes/cliente');
+ServicoRouter = require('./routes/servico');
 
 app.use('/funcionario', FuncionarioRouter);
 app.use('/cliente', ClienteRouter);
+app.use('/servico', ServicoRouter);
 
 /**
   * Código responsável por inicializar o servidor na porta indicada acima,

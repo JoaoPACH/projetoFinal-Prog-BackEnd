@@ -21,7 +21,7 @@ router.get("/:id", Auth.validaAcesso, async (req, res) => {
   } = req.params;
 
   if(!isValidObjectId(id)){
-    res.status(400).json({ menssagem: "O ID informado não é válido." })
+    res.status(400).json({ menssagem: "O ID informado não é válido." });
   } else{
     const data = await ClienteModel.findById(id);
     res.send(data);
@@ -32,7 +32,8 @@ router.post("/", Auth.validaAcesso, async (req, res) => {
   const {
     cnpj,
     nome,
-    idade } = req.body;
+    idade
+  } = req.body;
   if (cnpj && nome && idade){
     let obj = await ClienteModel.save(cnpj, nome, idade);
     res.json({ obj: obj });
@@ -63,7 +64,7 @@ router.delete("/:id", Auth.validaAcesso, async (req, res) => {
   } = req.params;
 
   if(!isValidObjectId(id)){
-    res.status(400).json({ mensagem: "Falha ao excluir o cleinte."});
+    res.status(400).json({ mensagem: "Falha ao excluir o cliente."});
   } else{
     const cliente = await ClienteModel.delete(id);
     res.json({

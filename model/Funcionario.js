@@ -7,79 +7,69 @@
 
 const mongoose = require("mongoose");
 
-let ids = 0;
-let funcionario = [];
-
 const FuncionarioSchema = new mongoose.Schema({
   nome: String,
-  email: String,
-  senha: Number
+  salario: String,
+  idade: Number,
+  bonus: Number,
 });
 
 const FuncionarioModel = mongoose.model("Funcionario", FuncionarioSchema);
 
 module.exports = {
-  save: async function(nome, email, senha){
-    const funcionario = new FuncionarioModel({
-      id: ++ids,
-      nome: nome,
-      email: email,
-      senha: senha
-    })
-    await funcionario.save();
-    return funcionario;
+  list: async function({ pagina = 1, limite = 10 }){
+    const resultado = await FuncionarioModel.find({})
+      .sort({ nome: 1 })
+      .skipt((pagina - 1) * limite)
+      .limit(limite)
+      .lean();
+    
+    return resultado;
   },
+
+  save: async function(nome, salario, idade){
+    const funcionario = new FuncionarioModel({
+      nome: nome,
+      salario: salario,
+      idade: idade,
+      bonus: 0
+    })
+    return funcionario.save();
+  },
+
+  findById: async function(id){
+    return await FuncionarioModel.findById(id).lean();
+  },
+
   update: async function(id, obj){
     let funcionario = await FuncionarioModel.findById(id);
     if (!funcionario){
-      let obj = {
-        id: id,
-        nome: nome,
-        email: email,
-        senha: senha
-      }
+      return false;
     }
-    Object.keys(obj).forEach(key => funcionario[key] = obj[key]);
-    await funcionario.save();
-    return funcionario;
+
+    const itens = Object.keys(obj).filter((key) => {
+      return ["nome", "salario", "idade"].includes(key);
+    });
+    itens.forEach((key) => (item[key] = obj[key]));
+    
+    return funcionario.save();
   },
-  list: async function(){
-    const funcionarios = await FuncionarioModel.find({}).lean()
-    return funcionarios;
-  },
-  listByName(nome){
-    let lista = []
-    for (let cont = 0; cont < funcionario.length; cont++){
-      if(funcionario[cont].nome.toUpperCase().startsWith(nome.toUpperCase())){
-        lista.push(funcionario[cont]);
-      }
+
+  updateBonus: async function(id, bonus){
+    let item = await FuncionarioModel.findById(id);
+    if(!item){
+      return false;
     }
-    return lista;
+
+    item.bonus = bonus;
+    return item.save();
   },
-  listByEmail(email){
-    let lista = [];
-    for (let cont = 0; cont < funcionario.length; cont++){
-      if(funcionario[cont].email == email){
-        lista.push(funcionario[cont]);
-      }
-    }
-    return lista;
-  },
-  getElementById: async function(id){
-    let posicao = this.getPositionById(id);
-    if (posicao >= 0){
-      return funcionario[posicao];
-    }
-  },
-  getPositionById(id){
-    for (let cont = 0; cont < funcionario.length; cont++){
-      if(funcionario[cont].id == id){
-        return cont;
-      }
-    }
-    return ;
-  },
+
   delete: async function(id){
-    return await FuncionarioModel.findByIdAndDelete(id);
+    return FuncionarioModel.findByIdAndDelete(id);
+  },
+
+  deleteMany: async function(){
+    return FuncionarioModel.deleteMany();
   }
 }
