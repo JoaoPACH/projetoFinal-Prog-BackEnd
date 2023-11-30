@@ -32,6 +32,15 @@ app.use('/cliente', ClienteRouter);
 app.use('/servico', ServicoRouter);
 
 /**
+ * Código responsável pela inicialização do swagger, que irá gerar uma documentação da aplicação.
+ */
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger_doc.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+/**
   * Código responsável por inicializar o servidor na porta indicada acima,
   * pelas variável 'port', no caso, na porta 3001.
 */

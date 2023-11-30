@@ -15,6 +15,8 @@ const { isValidObjectId } = require("mongoose");
  */
 
 router.get('/', Auth.validaAcesso, async (req, res) => {
+  // #swagger.summary = 'Listar Colaboradores.'
+
   const {
     pagina,
     limite
@@ -24,6 +26,8 @@ router.get('/', Auth.validaAcesso, async (req, res) => {
 });
 
 router.get('/:id', Auth.validaAcesso, async (req, res) => {
+  // #swagger.summary = 'Buscar Colaborador.'
+
   const {
     id
   } = req.params;
@@ -37,6 +41,8 @@ router.get('/:id', Auth.validaAcesso, async (req, res) => {
 });
 
 router.post('/', Auth.validaAcesso, async (req, res) => {
+  // #swagger.summary = 'Incluir Colaborador.'
+
   const {
     nome,
     salario,
@@ -52,6 +58,8 @@ router.post('/', Auth.validaAcesso, async (req, res) => {
 });
 
 router.put('/:id', Auth.validaAcesso, async (req, res) => {
+  // #swagger.summary = 'Editar Colaborador.'
+
   const {
     id
   } = req.params;
@@ -68,6 +76,8 @@ router.put('/:id', Auth.validaAcesso, async (req, res) => {
 });
 
 router.delete('/:id', Auth.validaAcesso, async (req, res) => {
+  // #swagger.summary = 'Excluir Colaborador.'
+  
   const {
     id
   } = req.params;
