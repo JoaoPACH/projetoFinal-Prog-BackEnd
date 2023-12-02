@@ -17,5 +17,25 @@ module.exports = {
         next();
       }
     });
+  },
+
+  validaAdmin: (req, res, next) => {
+    let beartoken = req.headers['authorization'] || "";
+    let token = beartoken.split(" ");
+
+    jwt.verify(token, '123!@#', (err, obj) => {
+      if(err){
+        res.status(403).json({
+          mensagem: "Token inválido, acesso negado."
+        });
+      } else if(!obj.admin){
+        res.status(403).json({
+          mensagem: "Acesso negado, seu usuário não é administrador."
+        });
+      } else {
+        req.usuario = obj.usuario;
+        next();
+      }
+    })
   }
 }

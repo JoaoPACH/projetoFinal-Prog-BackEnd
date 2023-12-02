@@ -7,6 +7,7 @@ const { isValidObjectId } = require('mongoose');
 
 router.get("/", Auth.validaAcesso, async (req, res) => {
   // #swagger.summary = 'Listar Clientes'
+  // #swagger.tags = ['Cliente']
 
   const {
     pagina,
@@ -19,6 +20,7 @@ router.get("/", Auth.validaAcesso, async (req, res) => {
 
 router.get("/:id", Auth.validaAcesso, async (req, res) => {
   // #swagger.summary = 'Buscar Cliente'
+  // #swagger.tags = ['Cliente']
 
   const {
     id
@@ -34,6 +36,7 @@ router.get("/:id", Auth.validaAcesso, async (req, res) => {
 
 router.post("/", Auth.validaAcesso, async (req, res) => {
   // #swagger.summary = 'Incluir Cliente'
+  // #swagger.tags = ['Cliente']
   
   const {
     cnpj,
@@ -50,6 +53,7 @@ router.post("/", Auth.validaAcesso, async (req, res) => {
 
 router.put("/:id", Auth.validaAcesso, async (req, res) => {
   // #swagger.summary = 'Editar Cliente'
+  // #swagger.tags = ['Cliente']
   
   const {
     id
@@ -68,6 +72,7 @@ router.put("/:id", Auth.validaAcesso, async (req, res) => {
 
 router.delete("/:id", Auth.validaAcesso, async (req, res) => {
   // #swagger.summary = 'Excluir Cliente'
+  // #swagger.tags = ['Cliente']
   
   const {
     id

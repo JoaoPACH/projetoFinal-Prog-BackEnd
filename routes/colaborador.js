@@ -6,7 +6,7 @@
 const express = require('express');
 const router = express.Router();
 
-const FuncionarioModel = require('../model/Funcionario');
+const ColaboradorModel = require('../model/Colaborador');
 const Auth = require("../helpers/Auth");
 const { isValidObjectId } = require("mongoose");
 
@@ -15,18 +15,24 @@ const { isValidObjectId } = require("mongoose");
  */
 
 router.get('/', Auth.validaAcesso, async (req, res) => {
-  // #swagger.summary = 'Listar Colaboradores.'
+  /* 
+    #swagger.tags = ['Colaborador']
+    #swagger.summary = 'Listar Colaboradores.'
+  */
 
   const {
     pagina,
     limite
   } = req.query;
-  const data = await FuncionarioModel.list({ pagina, limite });
+  const data = await ColaboradorModel.list({ pagina, limite });
   res.send(data);
 });
 
 router.get('/:id', Auth.validaAcesso, async (req, res) => {
-  // #swagger.summary = 'Buscar Colaborador.'
+  /*
+    #swagger.summary = 'Buscar Colaborador.'
+    #swagger.tags = ['Colaborador']
+  */
 
   const {
     id
@@ -35,13 +41,16 @@ router.get('/:id', Auth.validaAcesso, async (req, res) => {
   if(!isValidObjectId(id)){
     res.status(400).json({ mensagem: "O ID informado não é válido." })
   } else {
-    const data = await FuncionarioModel.findById(id);
+    const data = await ColaboradorModel.findById(id);
     res.send(data);
   }
 });
 
 router.post('/', Auth.validaAcesso, async (req, res) => {
-  // #swagger.summary = 'Incluir Colaborador.'
+  /*
+    #swagger.summary = 'Incluir Colaborador.'
+    #swagger.tags = ['Colaborador']
+  */
 
   const {
     nome,
@@ -50,7 +59,7 @@ router.post('/', Auth.validaAcesso, async (req, res) => {
   } = req.body;
 
   if(nome && salario && senha){
-    let obj = FuncionarioModel.save(nome, salario, senha);
+    let obj = ColaboradorModel.save(nome, salario, senha);
     res.json({ obj: obj })
   } else {
     res.status(400).json({ mensagem: "Falha ao inserir o novo colaborador." })
@@ -58,7 +67,10 @@ router.post('/', Auth.validaAcesso, async (req, res) => {
 });
 
 router.put('/:id', Auth.validaAcesso, async (req, res) => {
-  // #swagger.summary = 'Editar Colaborador.'
+  /*
+    #swagger.summary = 'Editar Colaborador.'
+    #swagger.tags = ['Colaborador']
+  */
 
   const {
     id
@@ -67,16 +79,19 @@ router.put('/:id', Auth.validaAcesso, async (req, res) => {
   if(!isValidObjectId(id)){
     res.status(400).json({ mensagem: "O ID informado não foi encontrado." });
   } else{
-    const funcionario = await FuncionarioModel.update(id, req.body);
+    const colaborador = await ColaboradorModel.update(id, req.body);
     res.json({
-      mensagem: "Funcionario editado com sucesso.",
-      funcionario
+      mensagem: "Colaborador editado com sucesso.",
+      colaborador
     });
   }
 });
 
 router.delete('/:id', Auth.validaAcesso, async (req, res) => {
-  // #swagger.summary = 'Excluir Colaborador.'
+  /*
+    #swagger.summary = 'Excluir Colaborador.'
+    #swagger.tags = ['Colaborador']
+  */
   
   const {
     id
@@ -85,10 +100,10 @@ router.delete('/:id', Auth.validaAcesso, async (req, res) => {
   if(!isValidObjectId(id)){
     res.status(400).json({ mensagem: "Falha ao excluir o colaborador." });
   } else{
-    const funcionario = await FuncionarioModel.delete(id);
+    const colaborador = await ColaboradorModel.delete(id);
     res.json({
       mensagem: "Colaborador excluido com sucesso.",
-      funcionario
+      colaborador
     });
   }
 });

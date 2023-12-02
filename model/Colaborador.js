@@ -7,20 +7,20 @@
 
 const mongoose = require("mongoose");
 
-const FuncionarioSchema = new mongoose.Schema({
+const ColaboradorSchema = new mongoose.Schema({
   nome: String,
   salario: String,
   idade: Number,
   bonus: Number,
 });
 
-const FuncionarioModel = mongoose.model("Funcionario", FuncionarioSchema);
+const ColaboradorModel = mongoose.model("Colaborador", ColaboradorSchema);
 
 module.exports = {
   list: async function({ pagina = 1, limite = 10 }){
-    const resultado = await FuncionarioModel.find({})
+    const resultado = await ColaboradorModel.find({})
       .sort({ nome: 1 })
-      .skipt((pagina - 1) * limite)
+      .skip((pagina - 1) * limite)
       .limit(limite)
       .lean();
     
@@ -28,22 +28,22 @@ module.exports = {
   },
 
   save: async function(nome, salario, idade){
-    const funcionario = new FuncionarioModel({
+    const colaborador = new ColaboradorModel({
       nome: nome,
       salario: salario,
       idade: idade,
       bonus: 0
     })
-    return funcionario.save();
+    return colaborador.save();
   },
 
   findById: async function(id){
-    return await FuncionarioModel.findById(id).lean();
+    return await ColaboradorModel.findById(id).lean();
   },
 
   update: async function(id, obj){
-    let funcionario = await FuncionarioModel.findById(id);
-    if (!funcionario){
+    let colaborador = await ColaboradorModel.findById(id);
+    if (!colaborador){
       return false;
     }
 
@@ -52,11 +52,11 @@ module.exports = {
     });
     itens.forEach((key) => (item[key] = obj[key]));
     
-    return funcionario.save();
+    return colaborador.save();
   },
 
   updateBonus: async function(id, bonus){
-    let item = await FuncionarioModel.findById(id);
+    let item = await ColaboradorModel.findById(id);
     if(!item){
       return false;
     }
@@ -66,10 +66,10 @@ module.exports = {
   },
 
   delete: async function(id){
-    return FuncionarioModel.findByIdAndDelete(id);
+    return ColaboradorModel.findByIdAndDelete(id);
   },
 
   deleteMany: async function(){
-    return FuncionarioModel.deleteMany();
+    return ColaboradorModel.deleteMany();
   }
 }

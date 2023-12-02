@@ -23,13 +23,17 @@ app.use(require('./helpers/mongo'));
   * desenvolver as rotas para que a gente consiga fazer a criação de uma requisição, listagem, modificar e deletar.
 */
 
-FuncionarioRouter = require('./routes/funcionario');
+ColaboradorRouter = require('./routes/colaborador');
 ClienteRouter = require('./routes/cliente');
 ServicoRouter = require('./routes/servico');
+UsuarioRouter = require('./routes/usuario');
+VendaRouter = require('./routes/venda');
 
-app.use('/funcionario', FuncionarioRouter);
+app.use('/colaborador', ColaboradorRouter);
 app.use('/cliente', ClienteRouter);
 app.use('/servico', ServicoRouter);
+app.use('/usuario', UsuarioRouter);
+app.use('/venda', VendaRouter);
 
 /**
  * Código responsável pela inicialização do swagger, que irá gerar uma documentação da aplicação.

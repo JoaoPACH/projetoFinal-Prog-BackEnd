@@ -6,7 +6,11 @@ const Auth = require('../helpers/Auth');
 const { isValidObjectId } = require('mongoose');
 
 router.get("/", Auth.validaAcesso, async (req, res) => {
-  // #swagger.summary = 'Listar Serviços'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Listar Serviços'
+    #swagger.tags = ['Servico']
+  */
   
   const {
     pagina,
@@ -18,7 +22,11 @@ router.get("/", Auth.validaAcesso, async (req, res) => {
 });
 
 router.get("/:id", Auth.validaAcesso, async (req, res) => {
-  // #swagger.summary = 'Buscar Serviço'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Buscar Serviço'
+    #swagger.tags = ['Servico']
+  */
   
   const {
     id
@@ -33,7 +41,11 @@ router.get("/:id", Auth.validaAcesso, async (req, res) => {
 });
 
 router.post("/", Auth.validaAcesso, async (req, res) => {
-  // #swagger.summary = 'Incluir Serviço'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Incluir Serviço'
+    #swagger.tags = ['Servico']
+  */
 
   const {
     nome,
@@ -49,7 +61,11 @@ router.post("/", Auth.validaAcesso, async (req, res) => {
 });
 
 router.put("/:id", Auth.validaAcesso, async (req, res) => {
-  // #swagger.summary = 'Editar Serviço'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Editar Serviço'
+    #swagger.tags = ['Servico']
+  */
   
   const {
     id
@@ -67,7 +83,11 @@ router.put("/:id", Auth.validaAcesso, async (req, res) => {
 });
 
 router.delete("/:id", Auth.validaAcesso, async (req, res) => {
-  // #swagger.summary = 'Excluir Serviço'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Excluir Serviço'
+    #swagger.tags = ['Servico']
+  */
   
   const {
     id
