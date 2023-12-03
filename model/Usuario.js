@@ -88,7 +88,7 @@ module.exports = {
     return UsuarioModel.findByIdAndDelete(id);
   },
 
-  deleteAll: async function(){
+  deleteMany: async function(){
     return UsuarioModel.deleteMany();
   }
 }

@@ -1,22 +1,24 @@
-const swaggerAutogen = require('swagger-autogen')();
+const swaggerAutogen = require("swagger-autogen")();
 
-output = './swagger_doc.json';
+output = "./swagger_doc.json";
 endpoints = [
-  './routes/colaborador.js',
   './routes/cliente.js',
+  './routes/colaborador.js',
+  './routes/login.js',
   './routes/servico.js',
-  './routes/usuario.js'
+  './routes/sistema.js',
+  './routes/usuario.js',
+  './routes/venda.js'
 ];
 
 const doc = {
   info: {
-    version: "1.0",
-    title: "Gestão de empresa.",
-    description: "API REST para gerenciamento de colaboradores, clientes e servicos.",
-  }
-  /*
+    version: "1.0.0",
+    title: "API REST",
+    description: "API REST para gerenciamento de colaboradores, servicos e clientes de uma empresa.",
+  },
   host: "localhost:3001",
-  basePath: ["/"],
+  basePath: "/",
   schemes: ["http"],
   consumes: ["application/json"],
   produces: ["application/json"],
@@ -37,9 +39,6 @@ const doc = {
   ],
   definitions: {},
   components: {},
-  */
 };
 
 swaggerAutogen(output, endpoints, doc);
-
-//swaggerAutogen(output, endpoints);

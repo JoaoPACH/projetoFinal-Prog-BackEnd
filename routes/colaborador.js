@@ -16,8 +16,9 @@ const { isValidObjectId } = require("mongoose");
 
 router.get('/', Auth.validaAcesso, async (req, res) => {
   /* 
-    #swagger.tags = ['Colaborador']
+    #swagger.security = [{ "Bearer": [] }]
     #swagger.summary = 'Listar Colaboradores.'
+    #swagger.tags = ['Colaborador']
   */
 
   const {
@@ -30,6 +31,7 @@ router.get('/', Auth.validaAcesso, async (req, res) => {
 
 router.get('/:id', Auth.validaAcesso, async (req, res) => {
   /*
+    #swagger.security = [{ "Bearer": [] }]
     #swagger.summary = 'Buscar Colaborador.'
     #swagger.tags = ['Colaborador']
   */
@@ -48,6 +50,7 @@ router.get('/:id', Auth.validaAcesso, async (req, res) => {
 
 router.post('/', Auth.validaAcesso, async (req, res) => {
   /*
+    #swagger.security = [{ "Bearer": [] }]
     #swagger.summary = 'Incluir Colaborador.'
     #swagger.tags = ['Colaborador']
   */
@@ -55,11 +58,11 @@ router.post('/', Auth.validaAcesso, async (req, res) => {
   const {
     nome,
     salario,
-    senha
+    idade
   } = req.body;
 
-  if(nome && salario && senha){
-    let obj = ColaboradorModel.save(nome, salario, senha);
+  if(nome && salario && idade){
+    let obj = ColaboradorModel.save(nome, salario, idade);
     res.json({ obj: obj })
   } else {
     res.status(400).json({ mensagem: "Falha ao inserir o novo colaborador." })
@@ -68,6 +71,7 @@ router.post('/', Auth.validaAcesso, async (req, res) => {
 
 router.put('/:id', Auth.validaAcesso, async (req, res) => {
   /*
+    #swagger.security = [{ "Bearer": [] }]
     #swagger.summary = 'Editar Colaborador.'
     #swagger.tags = ['Colaborador']
   */
@@ -89,6 +93,7 @@ router.put('/:id', Auth.validaAcesso, async (req, res) => {
 
 router.delete('/:id', Auth.validaAcesso, async (req, res) => {
   /*
+    #swagger.security = [{ "Bearer": [] }]
     #swagger.summary = 'Excluir Colaborador.'
     #swagger.tags = ['Colaborador']
   */

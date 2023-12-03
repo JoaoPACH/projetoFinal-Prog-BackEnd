@@ -10,6 +10,7 @@ router.get("/", Auth.validaAcesso, async (req, res) => {
   /*
     #swagger.security = [{ "Bearer": [] }]
     #swagger.summary = 'Listar Vendas'
+    #swagger.tags = ['Venda']
   */
 
   const {
@@ -24,6 +25,7 @@ router.get("/:id", Auth.validaAcesso, async (req, res) => {
   /*
     #swagger.security = [{ "Bearer": [] }]
     #swagger.summary = 'Buscar Venda'
+    #swagger.tags = ['Venda']
   */
 
   const {
@@ -42,6 +44,15 @@ router.post("/", Auth.validaAcesso, async (req, res) => {
   /*
     #swagger.security = [{ "Bearer": [] }]
     #swagger.summary = 'Incluir Venda'
+    #swagger.tags = ['Venda']
+    #swagger.parameters['body'] = {
+      in: 'body',
+      schema: {
+        servico: '',
+        empregado: '',
+        cliente: ''
+      }
+    }
   */
 
   const {
@@ -87,6 +98,13 @@ router.put("/:id", Auth.validaAcesso, async (req, res) => {
   /*
     #swagger.security = [{ "Bearer": [] }]
     #swagger.summary = 'Editar Venda'
+    #swagger.tags = ['Venda']
+    #swagger.parameters['body'] = {
+      in: 'body',
+      schema: {
+        valor: 60
+      }
+    }
   */
 
   const {
@@ -117,6 +135,7 @@ router.delete("/:id", Auth.validaAcesso, async (req, res) => {
   /*
     #swagger.security = [{ "Bearer": [] }]
     #swagger.summary = 'Excluir Vendas'
+    #swagger.tags = ['Venda']
   */
 
   const {

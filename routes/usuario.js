@@ -6,8 +6,11 @@ const Auth = require('../helpers/Auth');
 const { isValidObjectId } = require('mongoose');
 
 router.get("/", Auth.validaAdmin, async (req, res) => {
-  // #swagger.security = [{ "Bearer": [] }]
-  // #swagger.summary = 'Listar Usuários (Apenas Admin)'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Listar Usuários (Apenas Admin)'
+    #swagger.tags = ['Usuario']
+  */
 
   const {
     pagina,
@@ -22,8 +25,11 @@ router.get("/", Auth.validaAdmin, async (req, res) => {
 });
 
 router.get("/:id", Auth.validaAdmin, async (req, res) => {
-  // #swagger.security = [{ "Bearer": [] }]
-  // #swagger.summary = 'Buscar Usuário (Apenas Admin)'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Buscar Usuário (Apenas Admin)'
+    #swagger.tags = ['Usuario']
+  */
 
   const {
     id
@@ -40,8 +46,19 @@ router.get("/:id", Auth.validaAdmin, async (req, res) => {
 });
 
 router.post("/", Auth.validaAdmin, async (req, res) => {
-  // #swagger.security = [{ "Bearer": [] }]
-  // #swagger.summary = 'Criar Usuário Comum (Apenas Admin)'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Criar Usuário Comum (Apenas Admin)'
+    #swagger.tags = ['Usuario']
+    #swagger.parameters['body'] = {
+      in: 'body',
+      schema: {
+        nome: 'John Doe',
+        usuario: 'jhondoe',
+        senha: 'jhon123'
+      }
+    }
+  */
 
   const {
     nome,
@@ -68,8 +85,19 @@ router.post("/", Auth.validaAdmin, async (req, res) => {
 });
 
 router.post("/admin", Auth.validaAdmin, async (req, res) => {
-  // #swagger.security = [{ "Bearer": [] }]
-  // #swagger.summary = 'Criar Usuário Administrador (Apenas Admin)'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Criar Usuário Administrador (Apenas Admin)'
+    #swagger.tags = ['Usuario']
+    #swagger.parameters['body'] = {
+      in: 'body',
+      schema: {
+        nome: 'Administrador',
+        usuario: 'adm',
+        senha: 'adm123'
+      }
+    }
+  */
 
   const {
     nome,
@@ -93,8 +121,17 @@ router.post("/admin", Auth.validaAdmin, async (req, res) => {
 });
 
 router.put("/", Auth.validaAcesso, async (req, res) => {
-  // #swagger.security = [{ "Bearer": [] }]
-  // #swagger.summary = 'Alterar o seu próprio usuário'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Alterar o seu próprio usuário'
+    #swagger.tags = ['Usuario']
+    #swagger.parameters['body'] = {
+      in: 'body',
+      schema: {
+        nome: 'John Doe'
+      }
+    }
+  */
 
   if (!req.body.nome){
     res.status(400).json({
@@ -110,8 +147,19 @@ router.put("/", Auth.validaAcesso, async (req, res) => {
 });
 
 router.put("/:id", Auth.validaAdmin, async (req, res) => {
-  // #swagger.security = [{ "Bearer": [] }]
-  // #swagger.summary = 'Alterar qualquer Usuário (Apenas Admin)'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Alterar qualquer Usuário (Apenas Admin)'
+    #swagger.tags = ['Usuario']
+    #swagger.parameters['body'] = {
+      in: 'body',
+      schema: {
+        nome: 'John Doe 2',
+        usuario: 'jhondoe2',
+        senha: 'jhon321'
+      }
+    }
+  */
 
   const {
     id
@@ -131,8 +179,11 @@ router.put("/:id", Auth.validaAdmin, async (req, res) => {
 });
 
 router.delete(":id", Auth.validaAdmin, async (req, res) => {
-  // #swagger.security = [{ "Bearer": [] }]
-  // #swagger.summary = 'Remover Usuário (Apenas Admin)'
+  /*
+    #swagger.security = [{ "Bearer": [] }]
+    #swagger.summary = 'Remover Usuário (Apenas Admin)'
+    #swagger.tags = ['Usuario']
+  */
 
   const {
     id

@@ -6,17 +6,22 @@ require('dotenv').config()
 
 const express = require('express');
 const app = express();
-
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 /**
   * Códigos responsáveis por rodar os middlewares da aplicação. Os middlewares são funções responsáveis por processarem
   * uma requisição/resposta HTTP. Eles podem executar um código, alterar objetos de requisição e resposta,
   * finalizar uma requisição HTTP ou até mesmo chamar outro middleware.
 */
- 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(cors());
+
 app.use(require('./helpers/mongo'));
+
 
 /**
   * Código responsável pelas rotas que vamos utilizar para desenvolver os 03 CRUDs da aplicação. Ou seja,
@@ -28,7 +33,11 @@ ClienteRouter = require('./routes/cliente');
 ServicoRouter = require('./routes/servico');
 UsuarioRouter = require('./routes/usuario');
 VendaRouter = require('./routes/venda');
+SistemaRouter = require('./routes/sistema');
+LoginRouter = require('./routes/login');
 
+app.use('/', SistemaRouter);
+app.use('/login', LoginRouter);
 app.use('/colaborador', ColaboradorRouter);
 app.use('/cliente', ClienteRouter);
 app.use('/servico', ServicoRouter);
