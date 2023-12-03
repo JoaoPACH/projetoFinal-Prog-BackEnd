@@ -15,5 +15,3 @@ module.exports = async function(idColaborador){
   const ColaboradorModel = require('../model/Colaborador');
   return ColaboradorModel.updateBonus(idColaborador, bonus);
 }
-
-

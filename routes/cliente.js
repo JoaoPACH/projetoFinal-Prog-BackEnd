@@ -46,13 +46,13 @@ router.post("/", Auth.validaAcesso, async (req, res) => {
     #swagger.summary = 'Criar Cliente'
     #swagger.tags = ['Clientes']
     #swagger.parameters['body'] = {
-    in: 'body',
-    schema: {
-      cnpj: '11.111.111/0001-11',
-      nome: 'Cliente 1',
-      idade: 32
+      in: 'body',
+      schema: {
+        cnpj: '11.111.111/0001-11',
+        nome: 'Cliente 1',
+        idade: 32
+      }
     }
-  }
   */
   
   const {

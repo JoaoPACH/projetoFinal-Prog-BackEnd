@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const calcularBonus = require('../helpers/calcularBonus');
+
 const VendasSchema = new mongoose.Schema({
   valor: Number,
   servico: {

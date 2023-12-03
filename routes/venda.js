@@ -49,7 +49,7 @@ router.post("/", Auth.validaAcesso, async (req, res) => {
       in: 'body',
       schema: {
         servico: '',
-        empregado: '',
+        colaborador: '',
         cliente: ''
       }
     }
@@ -64,7 +64,7 @@ router.post("/", Auth.validaAcesso, async (req, res) => {
 
   if(
     (servico && !isValidObjectId(servico)) ||
-    (empregado && !isValidObjectId(empregado)) ||
+    (colaborador && !isValidObjectId(colaborador)) ||
     (cliente && !isValidObjectId(cliente))
   ){
     res.status(400).json({ mensagem: "Falha ao inserir a nova venda." })
@@ -118,7 +118,7 @@ router.put("/:id", Auth.validaAcesso, async (req, res) => {
 
   if (
     (servico && !isValidObjectId(servico)) ||
-    (empregado && !isValidObjectId(empregado)) ||
+    (colaborador && !isValidObjectId(colaborador)) ||
     (cliente && !isValidObjectId(cliente))
   ) {
     res.status(400).json({ mensagem: "O ID informado não foi encontrado." });

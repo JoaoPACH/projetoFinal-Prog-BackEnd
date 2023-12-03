@@ -25,7 +25,7 @@ module.exports = {
   },
 
   save: async function({ nome, usuario, senha }){
-    const user = new Model({
+    const user = new UsuarioModel({
       nome,
       usuario,
       senha
@@ -70,6 +70,7 @@ module.exports = {
     return usuario.save();
   },
 
+  /* Rota para atualizar o próprio usuário mesmo. */
   selfUpdate: async function(usuario, obj){
     let user = await UsuarioModel.findOne({
       usuario

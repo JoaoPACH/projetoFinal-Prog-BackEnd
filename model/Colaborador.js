@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 
 const ColaboradorSchema = new mongoose.Schema({
   nome: String,
-  salario: String,
+  salario: Number,
   idade: Number,
   bonus: Number,
 });
@@ -27,13 +27,13 @@ module.exports = {
     return resultado;
   },
 
-  save: async function(nome, salario, idade){
+  save: async function({ nome, salario, idade }){
     const colaborador = new ColaboradorModel({
       nome: nome,
       salario: salario,
       idade: idade,
       bonus: 0
-    })
+    });
     return colaborador.save();
   },
 
@@ -50,7 +50,7 @@ module.exports = {
     const itens = Object.keys(obj).filter((key) => {
       return ["nome", "salario", "idade"].includes(key);
     });
-    itens.forEach((key) => (item[key] = obj[key]));
+    itens.forEach((key) => (colaborador[key] = obj[key]));
     
     return colaborador.save();
   },
